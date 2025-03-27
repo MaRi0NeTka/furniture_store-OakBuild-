@@ -1,0 +1,10 @@
+#puthon stuff
+__pycache__/
+.pylintrc
+
+# IDE stuff
+.vscode/
+
+# Django stuff
+db.sqlite3
+media/
