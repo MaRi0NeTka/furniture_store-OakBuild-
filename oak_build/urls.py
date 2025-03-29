@@ -18,9 +18,19 @@ from signal import SIG_DFL
 from django.contrib import admin
 from django.urls import path, include
 
-from main import views
+import goods
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls', namespace='main')),
+    path('', include('main.urls', namespace='main')),#добавление конфигурации приложения main в конфигурацию проекта, namespace - это пространство имен для приложения main
+    path('catalog/', include('goods.urls', namespace='catalog')),#добавление конфигурации приложения goods в конфигурацию проекта, namespace - это пространство имен для приложения goods
     ]
+
+'''
+www.oak-build.com/admin
+www.oak-build.com
+www.oak-build.comC
+www.oak-build.com/catalog
+www.oak-build.com/catalog/product
+'''
