@@ -17,8 +17,9 @@ Including another URLconf
 from signal import SIG_DFL
 from django.contrib import admin
 from django.urls import path, include
+from debug_toolbar.toolbar import debug_toolbar_urls
 
-import goods
+from oak_build import settings
 
 
 urlpatterns = [
@@ -26,6 +27,9 @@ urlpatterns = [
     path('', include('main.urls', namespace='main')),#добавление конфигурации приложения main в конфигурацию проекта, namespace - это пространство имен для приложения main
     path('catalog/', include('goods.urls', namespace='catalog')),#добавление конфигурации приложения goods в конфигурацию проекта, namespace - это пространство имен для приложения goods
     ]
+
+if settings.DEBUG:
+    urlpatterns += debug_toolbar_urls()
 
 '''
 www.oak-build.com/admin

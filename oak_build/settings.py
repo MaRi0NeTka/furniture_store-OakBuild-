@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    "debug_toolbar", #отладка
+
     'main',
     'goods'
 ]
@@ -53,6 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "debug_toolbar.middleware.DebugToolbarMiddleware", #отладка
 ]
 
 ROOT_URLCONF = 'oak_build.urls'
@@ -126,6 +130,14 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR/'static',  #путь к папке со статическими файлами (указываем чтобы искало в корневой папке)
 ]
+
+
+INTERNAL_IPS = [ # IP-адреса, с которых разрешен доступ к отладочной панели(например наш- localhost)
+    # ...
+    "127.0.0.1",
+    # ...
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
