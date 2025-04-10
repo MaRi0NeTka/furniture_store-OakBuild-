@@ -33,3 +33,13 @@ class Products(models.Model):
 
     def __str__(self): #переопределяем метод __str__ чтобы в админке отображалось имя товара
         return f'{self.name} Количество - {self.quatity}'
+    
+    def display_id (self):
+        # метод для отображения id товара
+        return f'{self.id:05}'
+    
+    
+    def get_sell_price(self):
+        new_price = self.price - (self.price * self.discount )
+        self.discount = self.discount * 100 #приводим к процентам (старое отображение 0.2, новое 20%)
+        return round(new_price, 2) #округляем до 2 знаков после запятой

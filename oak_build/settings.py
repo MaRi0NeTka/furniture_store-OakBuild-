@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from re import S
 
-from django.conf.global_settings import DEFAULT_CHARSET
+from django.conf.global_settings import DEFAULT_CHARSET, MEDIA_URL
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -130,6 +130,10 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR/'static',  #путь к папке со статическими файлами (указываем чтобы искало в корневой папке)
 ]
+
+
+MEDIA_URL= 'media/' #URL для доступа к медиафайлам (например изображениям)
+MEDIA_ROOT = BASE_DIR/'media' #указываем путь к папке где будут храниться медиафайлы (например изображения)
 
 
 INTERNAL_IPS = [ # IP-адреса, с которых разрешен доступ к отладочной панели(например наш- localhost)
