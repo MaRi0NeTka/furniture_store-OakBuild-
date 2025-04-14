@@ -16,10 +16,10 @@ class Categories(models.Model):
 class Products(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name='Название')
     slug = models.SlugField(max_length=200, unique=True,null=True, blank=True, verbose_name='URL')
-    descriptiom = models.TextField(verbose_name='Описание',blank=True, null=True, default='Здесь может быть ваша реклама',)
+    description = models.TextField(verbose_name='Описание',blank=True, null=True, default='Здесь может быть ваша реклама',)
     image = models.ImageField(upload_to='goods_media', verbose_name='Изображение', blank=True, null=True)
     price = models.DecimalField(default = 0.00, max_digits=7, decimal_places=2, verbose_name='Цена')
-    discount = models.DecimalField(default= 0.00, max_digits=2, decimal_places=2, verbose_name='Скидка в %')
+    discount = models.DecimalField(default= 0.00, max_digits=4, decimal_places=2, verbose_name='Скидка в %')
     quatity= models.PositiveIntegerField(default= 0, verbose_name='Количество')
     category = models.ForeignKey(Categories, on_delete= models.CASCADE, verbose_name='Категория')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
