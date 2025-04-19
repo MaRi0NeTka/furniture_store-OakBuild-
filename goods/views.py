@@ -4,17 +4,19 @@ from django.core.paginator import Paginator
 from goods.models import Products
 
 def catalog(request, category_slug, page=1):
+    page:str = request.GET.get('page', 1) #получаем номер страницы из запроса, по умолчанию 1
+    
     if category_slug == 'all':
         goods = Products.objects.all() #получаем все товары из базы данных
     else:
-        goods =get_list_or_404(Products.objects.filter(category__slug = category_slug)) #получаем товары по slug категории
+        goods = get_list_or_404(Products.objects.filter(category__slug = category_slug)) #получаем товары по slug категории
         #if not goods.exists(): #если товаров нет, то переадресуем на ютуб или другой сайт, по желанию
          #   return redirect('https://www.youtube.com/')
     
     pagin = Paginator(goods, 3)#создание пагинации, по дефолту 3 объекта на странице
     
     #получаем номер страницы из запроса, если номер страницы больше чем количество страниц, то переходим на последнюю страницу
-    current_page = pagin.page(page) if page<=pagin.num_pages else pagin.page(pagin.num_pages)
+    current_page = pagin.page(int(page)) if int(page)<=pagin.num_pages else pagin.page(pagin.num_pages)
 
     context = {
         'title': 'House - Каталог товаров',
