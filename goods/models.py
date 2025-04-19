@@ -30,6 +30,9 @@ class Products(models.Model):
         db_table = 'product'
         verbose_name = 'Продукт' #имя которое отображается в таблице в админке
         verbose_name_plural = 'Продукты'
+        ordering = ('id',)#требуется параметр для сортровки товаров на странице, в противном случае будет ошибка снизу
+        """Pagination may yield inconsistent results with an unordered object_list: <class 'goods.models.Products'> QuerySet."""
+
 
     def __str__(self): #переопределяем метод __str__ чтобы в админке отображалось имя товара
         return f'{self.name} Количество - {self.quatity}'
