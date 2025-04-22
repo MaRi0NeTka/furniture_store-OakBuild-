@@ -2,15 +2,18 @@ from django.shortcuts import render, get_list_or_404, redirect
 from django.core.paginator import Paginator
 
 from goods.models import Products
+from goods.utils import q_search
 
-def catalog(request, category_slug):
+def catalog(request, category_slug = None):
     page:str = request.GET.get('page', 1) #получаем номер страницы из запроса, по умолчанию 1
     on_sale = request.GET.get('on_sale', False) #получаем параметр on_sale из запроса, по умолчанию False
     order_by_prods = request.GET.get('order_by', False) #получаем параметр order_by из запроса, по умолчанию False
-
+    query = request.GET.get('q', False) #получаем параметр q из запроса, по умолчанию False
 
     if category_slug == 'all':
         goods = Products.objects.all() #получаем все товары из базы данных
+    elif query: #если передан параметр q, то фильтруем товары по названию
+        goods = q_search(query) #фильтруем товары по названию
     else:
         goods = get_list_or_404(Products.objects.filter(category__slug = category_slug)) #получаем товары по slug категории
         # if not goods.exists(): #если товаров нет, то переадресуем на ютуб или другой сайт, по желанию
