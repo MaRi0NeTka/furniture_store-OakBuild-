@@ -50,7 +50,13 @@
             </form>
     </div>
    
-    
+    {% if request.GET.q %}
+        <h3 class="mt-4">Результат поиска по запросу {{ request.GET.q }}</h3>
+    {% if not goods %}
+        <h2 class="mt-4">По запросу ничего не найдено</h2>
+        <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
+    {% endif %}
+    {% endif %}
 
     {% for product in goods %}
     <!-- Карта товара -->
@@ -89,8 +95,9 @@
         </div>
     {% endfor %}
 </div>
+{% if goods %}
 <!-- Пагинация -->
-<nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center my-4">
         <div class="custom-shadow d-flex">
             <li class="page-item {% if not goods.has_previous%} disabled {% endif %}">
@@ -116,7 +123,9 @@
             </li>
         </div>
     </ul>
-</nav>
+    </nav>
+{% endif %}
+
 {% endblock content %}
 
 

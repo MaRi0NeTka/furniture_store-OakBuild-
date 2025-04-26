@@ -6,9 +6,9 @@ from goods.utils import q_search
 
 def catalog(request, category_slug = None):
     page:str = request.GET.get('page', 1) #получаем номер страницы из запроса, по умолчанию 1
-    on_sale = request.GET.get('on_sale', False) #получаем параметр on_sale из запроса, по умолчанию False
-    order_by_prods = request.GET.get('order_by', False) #получаем параметр order_by из запроса, по умолчанию False
-    query = request.GET.get('q', False) #получаем параметр q из запроса, по умолчанию False
+    on_sale = request.GET.get('on_sale', None) #получаем параметр on_sale из запроса, по умолчанию False
+    order_by_prods = request.GET.get('order_by', None) #получаем параметр order_by из запроса, по умолчанию False
+    query = request.GET.get('q', None) #получаем параметр q из запроса, по умолчанию False
 
     if category_slug == 'all':
         goods = Products.objects.all() #получаем все товары из базы данных
@@ -28,7 +28,7 @@ def catalog(request, category_slug = None):
     pagin = Paginator(goods, 3)#создание пагинации, по дефолту 3 объекта на странице
     
     #получаем номер страницы из запроса, если номер страницы больше чем количество страниц, то переходим на последнюю страницу
-    current_page = pagin.page(int(page)) if int(page)<=pagin.num_pages else pagin.page(pagin.num_pages)
+    current_page = pagin.page(int(page)) #if int(page)<=pagin.num_pages else pagin.page(pagin.num_pages)
 
     context = {
         'title': 'House - Каталог товаров',
