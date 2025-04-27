@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls', namespace='main')),#добавление конфигурации приложения main в конфигурацию проекта, namespace - это пространство имен для приложения main
     path('catalog/', include('goods.urls', namespace='catalog')),#добавление конфигурации приложения goods в конфигурацию проекта, namespace - это пространство имен для приложения goods
+    path('user/', include('users.urls', namespace='user')),#добавление конфигурации приложения goods в конфигурацию проекта, namespace - это пространство имен для приложения goods
     ]
 
 if settings.DEBUG:

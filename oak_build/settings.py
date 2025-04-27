@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     "debug_toolbar", #отладка
 
     'main',
-    'goods'
+    'goods',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +66,7 @@ ROOT_URLCONF = 'oak_build.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'templates'], #указывает путь, что бы искало шаблоны в папке templates в корневой папке проекта
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
