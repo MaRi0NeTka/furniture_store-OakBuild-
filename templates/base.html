@@ -173,9 +173,11 @@
             <div class="row mt-1">
                 <div class="col-lg-2">
                     <!-- Пустой блок на Ваше усмотрение -->
+                     
                 </div>
                 <div class="col-lg-10">
                     <!-- Контент на странице -->
+                     {% include "includes/notification.html" %}
                     {% block content %}{% endblock %}
                 </div>
             </div>

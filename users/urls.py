@@ -2,7 +2,7 @@ from django.urls import path
 
 from users import views
 
-app_name = 'users'  # пространство имен для приложения users
+app_name = 'user'  # пространство имен для приложения users
 
 urlpatterns = [
     path('login/', views.login, name='login'),  # страница входа в систему

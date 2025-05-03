@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from re import S
 
-from django.conf.global_settings import DEFAULT_CHARSET, MEDIA_URL
+from django.conf.global_settings import AUTH_USER_MODEL, DEFAULT_CHARSET, MEDIA_URL
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -153,5 +153,8 @@ INTERNAL_IPS = [ # IP-адреса, с которых разрешен дост�
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'users.User' #указывает на то, что мы переопределили модель пользователя которою django делает по умолчанию
+
+
 DEFAULT_CHARSET = 'utf-8' #кодировка по умолчанию для файлов, которые будут создаваться в проекте
 FILE_CHARSET = 'utf-8' #кодировка по умолчанию для файлов, которые будут создаваться в проекте
