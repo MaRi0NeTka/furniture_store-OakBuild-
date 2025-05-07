@@ -1,11 +1,11 @@
 from email.policy import HTTP
 from urllib.parse import uses_relative
 from django.contrib import auth
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from users.forms import UserLoginForm
+from users.forms import UserLoginForm, UserRegisterForm
 
 
 def login(request):
@@ -28,8 +28,19 @@ def login(request):
 
 
 def registration(request):
+    if request.method == "POST":
+        form = UserRegisterForm(data=request.POST)  # создаем форму с данными из POST запроса
+        if form.is_valid():
+            user = form.instance  # получаем экземпляр формы
+            form.save() # сохраняем форму в БД
+            auth.login(request, user)
+            return HttpResponseRedirect(reverse('user:login')) # перенаправляем на страницу входа в систему
+        
+    else:
+        form = UserRegisterForm() # создаем пустую форму, если метод GET
     context = {
         'title': 'Вход в систему',
+        'form':form # передаем форму в контекст
     }
     return render(request, 'users/registration.html', context=context)
 
@@ -42,4 +53,5 @@ def profile(request):
 
 
 def logout(request):
-    ...
+    auth.logout(request)
+    return redirect('main:index') # перенаправляем на главную страницу после выхода из системы
