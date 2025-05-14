@@ -1,3 +1,4 @@
+import re
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth, messages
 from django.shortcuts import redirect, render
@@ -17,6 +18,10 @@ def login(request):
             if user:
                 auth.login(request, user)
                 messages.success(request, f'Вы успешно вошли в систему как {username}')
+                if request.POST.get('next'):
+                    """проверяем, если он пыттается зайти на профиль не авторизовавшись, то перенаправляем
+                       его на страницу регистрации и после успешной регистрации перенаправляем на страницу профиля"""
+                    return HttpResponseRedirect(request.POST.get('next'))# перенаправляем на /user/profile/
                 return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserLoginForm() # создаем пустую форму, если метод GET
