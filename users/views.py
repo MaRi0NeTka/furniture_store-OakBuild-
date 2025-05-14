@@ -1,11 +1,10 @@
-from email.policy import HTTP
-from urllib.parse import uses_relative
-from django.contrib import auth
+from django.contrib.auth.decorators import login_required
+from django.contrib import auth, messages
 from django.shortcuts import redirect, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from users.forms import UserLoginForm, UserRegisterForm
+from users.forms import UserLoginForm, UserRegisterForm, UserEditForm
 
 
 def login(request):
@@ -17,6 +16,7 @@ def login(request):
             user = auth.authenticate(username=username, password=password) # аутентифицируем пользователя
             if user:
                 auth.login(request, user)
+                messages.success(request, f'Вы успешно вошли в систему как {username}')
                 return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserLoginForm() # создаем пустую форму, если метод GET
@@ -33,6 +33,7 @@ def registration(request):
         if form.is_valid():
             user = form.instance  # получаем экземпляр формы
             form.save() # сохраняем форму в БД
+            messages.success(request, f'Вы успешно зарегистрировались')
             auth.login(request, user)
             return HttpResponseRedirect(reverse('user:login')) # перенаправляем на страницу входа в систему
         
@@ -45,13 +46,28 @@ def registration(request):
     return render(request, 'users/registration.html', context=context)
 
 
+@login_required
 def profile(request):
+    if request.method == "POST":
+        form = UserEditForm(data=request.POST, instance=request.user, files=request.FILES)
+        if form.is_valid():            
+            form.save()
+            messages.success(request, f'Профиль успешно обновлен')
+            return redirect('user:profile')  
+        else:
+            print("Форма невалидна:", form.errors)      
+    else:
+        form = UserEditForm(instance=request.user)
+
     context = {
         'title': 'Вход в систему',
+        'form': form
     }
     return render(request, 'users/profile.html', context=context)
 
 
+@login_required
 def logout(request):
     auth.logout(request)
+    messages.success(request, f'Вы вышли из системы')
     return redirect('main:index') # перенаправляем на главную страницу после выхода из системы
