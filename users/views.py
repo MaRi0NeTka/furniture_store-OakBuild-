@@ -18,10 +18,13 @@ def login(request):
             if user:
                 auth.login(request, user)
                 messages.success(request, f'Вы успешно вошли в систему как {username}')
-                if request.POST.get('next'):
+                
+                redirected_page = request.POST.get('next', None)
+                if redirected_page and redirected_page != reverse('user:logout'):
                     """проверяем, если он пыттается зайти на профиль не авторизовавшись, то перенаправляем
                        его на страницу регистрации и после успешной регистрации перенаправляем на страницу профиля"""
                     return HttpResponseRedirect(request.POST.get('next'))# перенаправляем на /user/profile/
+                
                 return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserLoginForm() # создаем пустую форму, если метод GET

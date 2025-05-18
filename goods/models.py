@@ -41,8 +41,11 @@ class Products(models.Model):
         # метод для отображения id товара
         return f'{self.id:05}'
     
+    def show_discount(self):
+        # метод для отображения скидки
+        if self.discount > 0:
+            return f'{self.discount * 100}'
     
     def get_sell_price(self):
         new_price = self.price - (self.price * self.discount )
-        self.discount = self.discount * 100 #приводим к процентам (старое отображение 0.2, новое 20%)
         return round(new_price, 2) #округляем до 2 знаков после запятой
