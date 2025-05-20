@@ -40,7 +40,20 @@ def cart_change(request, product_slug):
     ...
 
 def cart_remove(request):
-    ...
-    # cart = Cart.objects.get(id=cart_id)
-    # cart.delete()
-    # return redirect(request.META["HTTP_REFERER"])
+    cart_id = request.POST.get('cart_id')# получаем id карточки товара из POST запроса
+
+    cart = Cart.objects.get(id=cart_id)
+    quantity = cart.quantity
+    cart.delete()
+    
+    user_carts = get_user_carts(request)# получаем все корзины с товарами пользователя
+    cart_items_html = render_to_string(
+        'carts/includes/include_cart.html', {'carts':user_carts}, request=request
+    )
+
+    response_data = {
+        'message': 'Товар удален из корзины',
+        'cart_items_html': cart_items_html,
+        'quantity_deleted': quantity,
+    }
+    return JsonResponse(response_data)
