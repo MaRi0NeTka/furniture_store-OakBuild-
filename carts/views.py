@@ -15,13 +15,22 @@ def cart_add(request):
     if request.user.is_authenticated:#проверяем авторизован ли пользователь
         cart = Cart.objects.filter(user=request.user, product=product)# получаем карточку товара в корзине пользователя
         if cart.exists(): #проверяем существует ли карточка товара в корзине, если существует, то прибавляем к ней +1
-            print(list(cart))
             cart = cart.first()# получаем первый элемент из QuerySet, хоть он там и один
-            print(cart)
             cart.quantity +=1
             cart.save() # сохраняем изменения в карточке товара
         else: #если карточки товара в корзине нет, то создаем новую
             cart = Cart.objects.create(user=request.user, product=product, quantity=1)
+    else:# если пользователь не авторизован, то создаем корзину по session_key
+        #привязываем корзину к сессионному ключу пользователя 
+        cart = Cart.objects.filter(session_key = request.session.session_key, product=product)
+        if cart.exists():
+            cart = cart.first()
+            cart.quantity += 1
+            cart.save()
+        else:
+            # создаем новую корзину для неавторизованного пользователя по сессионному ключу
+            cart = Cart.objects.create(session_key=request.session.session_key, product=product, quantity=1)
+
     
     user_carts = get_user_carts(request)# получаем все корзины с товарами пользователя
 

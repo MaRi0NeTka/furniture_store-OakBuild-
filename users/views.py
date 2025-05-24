@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+from carts.models import Cart
 from users.forms import UserLoginForm, UserRegisterForm, UserEditForm
 
 
@@ -15,10 +16,19 @@ def login(request):
             username = request.POST['username'] # получаем имя пользователя из формы
             password = request.POST['password'] # получаем пароль из формы
             user = auth.authenticate(username=username, password=password) # аутентифицируем пользователя
+            
+            ''''получаем session_key пользователя, чтобы подвязать его корзину(когда он был не авторизован)
+               к сессионному ключу, чтобы потом не потерять корзину при авторизации'''
+            session_key = request.session.session_key
+            
             if user:
                 auth.login(request, user)
                 messages.success(request, f'Вы успешно вошли в систему как {username}')
-                
+
+                if session_key:
+                    Cart.objects.filter(session_key=session_key).update(user=user) # обновляем корзину пользователя, если он был не авторизован
+                    Cart.objects.update(session_key=None) # очищаем session_key пользователя, чтобы не было путаницы
+
                 redirected_page = request.POST.get('next', None)
                 if redirected_page and redirected_page != reverse('user:logout'):
                     """проверяем, если он пыттается зайти на профиль не авторизовавшись, то перенаправляем
@@ -39,10 +49,19 @@ def registration(request):
     if request.method == "POST":
         form = UserRegisterForm(data=request.POST)  # создаем форму с данными из POST запроса
         if form.is_valid():
-            user = form.instance  # получаем экземпляр формы
             form.save() # сохраняем форму в БД
-            messages.success(request, f'Вы успешно зарегистрировались')
+
+            session_key = request.session.session_key
+
+            user = form.instance  # получаем экземпляр формы
             auth.login(request, user)
+            messages.success(request, f'Вы успешно зарегистрировались')
+            
+            if session_key:
+                Cart.objects.filter(session_key=session_key).update(user=user)
+                Cart.objects.update(session_key=None) # очищаем session_key пользователя, чтобы не было путаницы
+
+
             return HttpResponseRedirect(reverse('user:login')) # перенаправляем на страницу входа в систему
         
     else:
