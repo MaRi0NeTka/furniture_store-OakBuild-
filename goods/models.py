@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class Categories(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name='Название')
@@ -20,7 +21,7 @@ class Products(models.Model):
     image = models.ImageField(upload_to='goods_media', verbose_name='Изображение', blank=True, null=True)
     price = models.DecimalField(default = 0.00, max_digits=7, decimal_places=2, verbose_name='Цена')
     discount = models.DecimalField(default= 0.00, max_digits=4, decimal_places=2, verbose_name='Скидка в %')
-    quatity= models.PositiveIntegerField(default= 0, verbose_name='Количество')
+    quantity= models.PositiveIntegerField(default= 0, verbose_name='Количество')
     category = models.ForeignKey(Categories, on_delete= models.CASCADE, verbose_name='Категория')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
@@ -35,8 +36,14 @@ class Products(models.Model):
 
 
     def __str__(self): #переопределяем метод __str__ чтобы в админке отображалось имя товара
-        return f'{self.name} Количество - {self.quatity}'
+        return f'{self.name} Количество - {self.quantity}'
     
+    def get_absolute_url(self):
+        # метод для получения абсолютного URL товара
+        # используется в админке товара для перехода на товар
+        return reverse("catalog:product", kwargs={"product_slug": self.slug})
+    
+
     def display_id (self):
         # метод для отображения id товара
         return f'{self.id:05}'

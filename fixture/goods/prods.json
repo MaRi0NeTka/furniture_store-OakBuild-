@@ -9,7 +9,7 @@
             "image": "goods_media/set_of_tea_table_and_three_chairs_Ve26En6.jpg",
             "price": "150.00",
             "discount": "0.00",
-            "quatity": 10,
+            "quantity": 10,
             "category": 6,
             "created_at": "2025-04-06T16:00:20.789Z",
             "updated_at": "2025-04-11T12:23:48.449Z"
@@ -25,7 +25,7 @@
             "image": "goods_media/set_of_tea_table_and_two_chairs_K3YzQ1j.jpg",
             "price": "93.00",
             "discount": "0.10",
-            "quatity": 7,
+            "quantity": 7,
             "category": 6,
             "created_at": "2025-04-06T16:02:38.917Z",
             "updated_at": "2025-04-11T12:23:41.068Z"
@@ -41,7 +41,7 @@
             "image": "goods_media/double_bed_mwYD1wM.jpg",
             "price": "670.00",
             "discount": "0.00",
-            "quatity": 9,
+            "quantity": 9,
             "category": 7,
             "created_at": "2025-04-06T16:03:25.599Z",
             "updated_at": "2025-04-11T12:23:26.954Z"
@@ -57,7 +57,7 @@
             "image": "goods_media/kitchen_table_2_uwP7JUk.jpg",
             "price": "364.00",
             "discount": "0.00",
-            "quatity": 4,
+            "quantity": 4,
             "category": 6,
             "created_at": "2025-04-06T16:04:23.486Z",
             "updated_at": "2025-04-11T12:23:17.388Z"
@@ -73,7 +73,7 @@
             "image": "goods_media/kitchen_table_nKmroI2.jpg",
             "price": "430.00",
             "discount": "0.12",
-            "quatity": 7,
+            "quantity": 7,
             "category": 6,
             "created_at": "2025-04-06T16:05:08.606Z",
             "updated_at": "2025-04-11T12:23:06.409Z"
@@ -89,7 +89,7 @@
             "image": "goods_media/corner_sofa_RDwcv64.jpg",
             "price": "660.00",
             "discount": "0.00",
-            "quatity": 8,
+            "quantity": 8,
             "category": 8,
             "created_at": "2025-04-06T16:05:50.329Z",
             "updated_at": "2025-04-11T12:22:52.648Z"
@@ -105,7 +105,7 @@
             "image": "goods_media/bedside_table_kEOjVkh.jpg",
             "price": "50.00",
             "discount": "0.06",
-            "quatity": 10,
+            "quantity": 10,
             "category": 7,
             "created_at": "2025-04-06T16:06:34.573Z",
             "updated_at": "2025-04-11T12:22:36.474Z"
@@ -121,7 +121,7 @@
             "image": "goods_media/sofa_OIgVyeG.jpg",
             "price": "199.90",
             "discount": "0.00",
-            "quatity": 12,
+            "quantity": 12,
             "category": 9,
             "created_at": "2025-04-06T16:07:17.410Z",
             "updated_at": "2025-04-11T12:22:21.675Z"
@@ -137,7 +137,7 @@
             "image": "goods_media/office_chair_AizWM8q.jpg",
             "price": "30.00",
             "discount": "0.00",
-            "quatity": 12,
+            "quantity": 12,
             "category": 9,
             "created_at": "2025-04-06T16:08:02.084Z",
             "updated_at": "2025-04-11T12:22:10.139Z"
@@ -153,7 +153,7 @@
             "image": "goods_media/plants_P3vGbj6.jpg",
             "price": "10.00",
             "discount": "0.05",
-            "quatity": 7,
+            "quantity": 7,
             "category": 11,
             "created_at": "2025-04-06T16:08:37.635Z",
             "updated_at": "2025-04-11T12:21:57.235Z"
@@ -169,7 +169,7 @@
             "image": "goods_media/flower_Z2jkGF3.jpg",
             "price": "150.00",
             "discount": "0.00",
-            "quatity": 5,
+            "quantity": 5,
             "category": 11,
             "created_at": "2025-04-06T16:09:17.794Z",
             "updated_at": "2025-04-11T12:21:48.369Z"
@@ -185,7 +185,7 @@
             "image": "goods_media/strange_table_AVozKxT.jpg",
             "price": "24.90",
             "discount": "0.00",
-            "quatity": 3,
+            "quantity": 3,
             "category": 7,
             "created_at": "2025-04-06T16:10:32.385Z",
             "updated_at": "2025-04-11T12:21:32.835Z"
