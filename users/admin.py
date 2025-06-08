@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from orders.admin import OrderTabularAdmin
 from users.models import User
 
 
@@ -8,3 +9,4 @@ from users.models import User
 class UserAdmin(admin.ModelAdmin):
     list_display = ['first_name', 'last_name']
     search_fields = ['first_name', 'last_name', 'username']
+    inlines = [OrderTabularAdmin]
