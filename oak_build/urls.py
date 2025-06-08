@@ -29,6 +29,7 @@ urlpatterns = [
     path('catalog/', include('goods.urls', namespace='catalog')),#добавление конфигурации приложения goods в конфигурацию проекта, namespace - это пространство имен для приложения goods
     path('user/', include('users.urls', namespace='user')),#добавление конфигурации приложения users в конфигурацию проекта, namespace - это пространство имен для приложения users
     path('cart/', include('carts.urls', namespace='cart')),
+    path('orders/', include('orders.urls', namespace='orders')),  #добавление конфигурации приложения orders в конфигурацию проекта, namespace - это пространство имен для приложения orders
     
     ]
 
