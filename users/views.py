@@ -77,7 +77,9 @@ class UserProfileEditView(LoginRequiredMixin, UpdateView):
         messages.error(self.request, 'Ошибка при обновлении профиля')
         return super().form_invalid(form)
 
-    def form_valid(self, form):
+    def form_valid(self, form):        
+        if self.request.POST.get('default_avatar') == 'on':
+            form.instance.image = None  # если галочка "Использовать аватар по умолчанию" установлена, то удаляем аватар пользователя
         messages.success(self.request, 'Профиль успешно обновлен')
         return super().form_valid(form)  # перенаправляем на страницу профиля после успешного редактирования
     

@@ -32,6 +32,16 @@
                                                         <div class="alert alert-danger alert-dismissible fade show">{{form.image.errors}}</div>
                                                         {% endif %}
                                                 </div>
+                                                {% if user.image %}
+                                                    <div class="col-md-12 mb-3 text-center">
+                                                        <div class="form-check d-inline-block">
+                                                            <input class="form-check-input" type="checkbox" name="default_avatar" id="flexCheckDefault">
+                                                            <label class="form-check-label" for="flexCheckDefault">
+                                                                Установить аватар по умолчанию
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
                                                 <div class="col-md-12 mb-3">
                                                     <label for="id_first_name" class="form-label">Имя*</label>
                                                     <input type="text" class="form-control" id="id_first_name"
