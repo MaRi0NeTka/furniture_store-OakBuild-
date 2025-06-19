@@ -1,5 +1,5 @@
-from django.db.models import Q
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+# from django.db.models import Q
+# from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 from rapidfuzz import fuzz
 
@@ -19,15 +19,10 @@ def q_search(query):
     for product in goods:
         ratio = fuzz.partial_ratio(query.lower(), product.name.lower())
         ratio2 = fuzz.partial_ratio(query.lower(), product.description.lower())
-        if ratio > 90:  # допустим, 70% совпадения
-            results.append((ratio, product))
-        elif ratio2 > 80:
-            results.append((ratio2, product))
-
+        if ratio > 90 or ratio2 > 80:  # допустим, 70% совпадения
+            results.append(product.id)
     # Сортируем по степени совпадения
-    results.sort(key=lambda x: x[0], reverse=True)
-    
-    return [product for ratio, product in results]
+    return Products.objects.filter(id__in = results)
 
 
 """Тоже самое, только с использованием Postgres."""

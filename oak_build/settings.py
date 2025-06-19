@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from re import S
 
-from django.conf.global_settings import AUTH_USER_MODEL, DEFAULT_CHARSET, MEDIA_URL
+from django.conf.global_settings import AUTH_USER_MODEL, DEFAULT_CHARSET, LOGIN_REDIRECT_URL, MEDIA_URL
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -161,3 +161,5 @@ AUTH_USER_MODEL = 'users.User' #указывает на то, что мы пер
 DEFAULT_CHARSET = 'utf-8' #кодировка по умолчанию для файлов, которые будут создаваться в проекте
 FILE_CHARSET = 'utf-8' #кодировка по умолчанию для файлов, которые будут создаваться в проекте
 LOGIN_URL='/user/login/' #URL для перенаправления при попытке доступа к защищенным страницам без авторизации
+LOGIN_REDIRECT_URL = '/' #URL для перенаправления после успешной авторизации главная страница указана
+
