@@ -10,6 +10,7 @@ from django.views.generic import CreateView, TemplateView, UpdateView
 
 from carts.models import Cart
 from orders.models import Order, OrderItem
+from users.cache_mixin import CacheMixin
 from users.forms import UserLoginForm, UserRegisterForm, UserEditForm
 
 
@@ -65,7 +66,7 @@ class UserRegisterView(CreateView):
         return context
 
 
-class UserProfileEditView(LoginRequiredMixin, UpdateView):
+class UserProfileEditView(LoginRequiredMixin, CacheMixin, UpdateView):
     template_name = 'users/profile.html'  # указываем шаблон для страницы профиля
     form_class = UserEditForm  # указываем форму для редактирования профиля
     success_url = reverse_lazy('user:profile')
@@ -86,9 +87,13 @@ class UserProfileEditView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Профиль'
-        context['orders'] = Order.objects.filter(user=self.request.user).prefetch_related(
+        orders = Order.objects.filter(user=self.request.user).prefetch_related(
             Prefetch('items', queryset=OrderItem.objects.select_related('product'))
-        ).order_by('-id')
+        ).order_by('-id')# формируем запрос, но сам он не выполниться, подействует только при обращении к нему
+        # а обратимся к нему только в кэшмиксине(снизу) при вызове метода get_set_cache
+        # используем кэш, чтобы не загружать заказы пользователя каждый раз из базы данных
+        context['orders'] = self.get_set_cache(orders, f'user_{self.request.user.id}',120)
+
         return context
     
 
